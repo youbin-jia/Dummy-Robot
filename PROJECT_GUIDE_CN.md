@@ -7,6 +7,9 @@
 
 本目录由 ZIP 下载于 2026-06-28 初始化，路径：`d:\Code\Dummy-Robot`。
 
+**软硬件架构详解**（总体架构、固件分层、CAN/ASCII/Fibre 协议、控制时序）：  
+→ [`5.Docs/ARCHITECTURE_CN.md`](5.Docs/ARCHITECTURE_CN.md)
+
 ---
 
 ## 项目简介
@@ -38,6 +41,7 @@ Dummy-Robot/
 ├── 3.Software/            # DummyStudio 上位机等
 ├── 4.Model/               # 3D 模型、机箱、手提箱等
 ├── 5.Docs/                # 文档与图片
+│   └── ARCHITECTURE_CN.md # 软硬件架构文档（二次开发参考）
 └── README.md              # 官方说明（英文为主）
 ```
 
