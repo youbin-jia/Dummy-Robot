@@ -1,3 +1,10 @@
 {
-    "cmake.sourceDirectory": "D:/Code/Dummy-Robot/2.Firmware/Core-STM32F4-fw"
+    "cmake.sourceDirectory": "D:/Code/Dummy-Robot/2.Firmware/Core-STM32F4-fw",
+    "files.autoGuessEncoding": true,
+    "files.candidateGuessEncodings": [
+        "utf8",
+        "gb18030",
+        "gbk",
+        "gb2312"
+    ]
 }
