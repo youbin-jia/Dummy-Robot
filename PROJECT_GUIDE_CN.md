@@ -10,6 +10,9 @@
 **软硬件架构详解**（总体架构、固件分层、CAN/ASCII/Fibre 协议、控制时序）：  
 → [`5.Docs/ARCHITECTURE_CN.md`](5.Docs/ARCHITECTURE_CN.md)
 
+**模块详细设计**（各代码模块设计架构、功能与在总体架构中的位置）：  
+→ [`5.Docs/design/README.md`](5.Docs/design/README.md)
+
 ---
 
 ## 项目简介
@@ -41,7 +44,8 @@ Dummy-Robot/
 ├── 3.Software/            # DummyStudio 上位机等
 ├── 4.Model/               # 3D 模型、机箱、手提箱等
 ├── 5.Docs/                # 文档与图片
-│   └── ARCHITECTURE_CN.md # 软硬件架构文档（二次开发参考）
+│   ├── ARCHITECTURE_CN.md # 软硬件架构文档（二次开发参考）
+│   └── design/            # 模块详细设计（REF / 驱动 / 上位机）
 └── README.md              # 官方说明（英文为主）
 ```
 
@@ -55,11 +59,11 @@ Dummy-Robot/
 | **步进驱动 42** | `2.Firmware/Ctrl-Step-Driver-STM32F1-fw/` | STM32F103 | CMake + CLion |
 | **预编译固件** | `2.Firmware/_Released HEX/` | — | ST-Link 直接烧录 |
 
-核心固件分层：
+核心固件分层（详细设计见 [`5.Docs/design/`](5.Docs/design/README.md)）：
 
-- `Robot/` — 运动学、DummyRobot 类、DH 参数
-- `UserApp/` — 应用层与协议（CAN/USB/串口）
-- `BSP/` — OLED、IMU、蜂鸣器等板载驱动
+- `Robot/` — 运动学、DummyRobot 类、DH 参数 → [REF-Robot](5.Docs/design/REF-Robot.md)
+- `UserApp/` — 应用层与协议（CAN/USB/串口） → [REF-App](5.Docs/design/REF-App.md) · [REF-Protocols](5.Docs/design/REF-Protocols.md)
+- `BSP/` — OLED、IMU、通信、EEPROM 等 → [REF-Comm](5.Docs/design/REF-Comm.md) · [REF-BSP](5.Docs/design/REF-BSP.md)
 
 ---
 

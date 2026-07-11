@@ -2,7 +2,8 @@
 
 > 面向二次开发的系统架构说明。参数与协议以当前仓库源码为准。  
 > 官方仓库：[peng-zhihui/Dummy-Robot](https://github.com/peng-zhihui/Dummy-Robot)  
-> 本地上手指南：[PROJECT_GUIDE_CN.md](../PROJECT_GUIDE_CN.md)
+> 本地上手指南：[PROJECT_GUIDE_CN.md](../PROJECT_GUIDE_CN.md)  
+> **模块详细设计**（各代码模块设计架构与功能）：[`design/README.md`](design/README.md)
 
 ---
 
@@ -163,21 +164,42 @@ Dummy-Robot/
 │   ├── CLI-Tool/                       # Python fibre / reftool
 │   └── DummyStudio/                    # Unity 预编译上位机
 ├── 4.Model/                            # STEP
-└── 5.Docs/                             # 文档与图片
+└── 5.Docs/
+    ├── ARCHITECTURE_CN.md              # 本文件（系统总览）
+    └── design/                         # 模块详细设计
 ```
+
+### 3.1.1 模块详细设计索引
+
+系统级说明见本文；**模块级入口、类职责、二次开发点**见 [`design/`](design/README.md)：
+
+| 模块文档 | 代码路径 |
+|----------|----------|
+| [REF-App](design/REF-App.md) | `Core-STM32F4-fw/UserApp/` |
+| [REF-Robot](design/REF-Robot.md) | `Core-STM32F4-fw/Robot/` |
+| [REF-Comm](design/REF-Comm.md) | `Core-STM32F4-fw/Bsp/communication/` |
+| [REF-Protocols](design/REF-Protocols.md) | `Core-STM32F4-fw/UserApp/protocols/` |
+| [REF-BSP](design/REF-BSP.md) | `Core-STM32F4-fw/Bsp/{imu,gpio,memory,utils}/` |
+| [REF-3rdParty](design/REF-3rdParty.md) | `Core-STM32F4-fw/3rdParty/` |
+| [DRV-App](design/DRV-App.md) | `Ctrl-Step-.../UserApp/` |
+| [DRV-Control](design/DRV-Control.md) | `Ctrl-Step-.../Ctrl/` |
+| [DRV-Port](design/DRV-Port.md) | `Ctrl-Step-.../Port/` |
+| [DRV-Protocols](design/DRV-Protocols.md) | `Ctrl-Step-.../UserApp/protocols/` |
+| [HOST-CLI-Tool](design/HOST-CLI-Tool.md) | `3.Software/CLI-Tool/` |
+| [HOST-DummyStudio](design/HOST-DummyStudio.md) | `3.Software/DummyStudio/` |
 
 ### 3.2 REF 核心固件（STM32F405 + FreeRTOS）
 
 路径：[`2.Firmware/Core-STM32F4-fw/`](../2.Firmware/Core-STM32F4-fw/)
 
-| 分层 | 目录 | 职责 |
-|------|------|------|
-| 应用 | `UserApp/` | `main.cpp` 任务创建；ASCII / Fibre / CAN 协议扩展（二次开发重点） |
-| 机器人 | `Robot/` | `DummyRobot`、`DOF6Kinematic`、`CtrlStepMotor`、`DummyHand` |
-| 板级 | `Bsp/` | USB/UART/CAN 通信、OLED、MPU6050、GPIO、软 I2C、EEPROM |
-| 第三方 | `3rdParty/` | **fibre**（对象序列化）、**u8g2**（OLED） |
-| 中间件 | `Middlewares/` | FreeRTOS（CMSIS-RTOS v2）、USB Device |
-| Cube/HAL | `Core/`、`Drivers/`、`USB_DEVICE/` | 外设初始化与 ST HAL |
+| 分层 | 目录 | 职责 | 详细设计 |
+|------|------|------|----------|
+| 应用 | `UserApp/` | `main.cpp` 任务创建；ASCII / Fibre / CAN 协议扩展（二次开发重点） | [REF-App](design/REF-App.md) · [REF-Protocols](design/REF-Protocols.md) |
+| 机器人 | `Robot/` | `DummyRobot`、`DOF6Kinematic`、`CtrlStepMotor`、`DummyHand` | [REF-Robot](design/REF-Robot.md) |
+| 板级 | `Bsp/` | USB/UART/CAN 通信、OLED、MPU6050、GPIO、软 I2C、EEPROM | [REF-Comm](design/REF-Comm.md) · [REF-BSP](design/REF-BSP.md) |
+| 第三方 | `3rdParty/` | **fibre**（对象序列化）、**u8g2**（OLED） | [REF-3rdParty](design/REF-3rdParty.md) |
+| 中间件 | `Middlewares/` | FreeRTOS（CMSIS-RTOS v2）、USB Device | — |
+| Cube/HAL | `Core/`、`Drivers/`、`USB_DEVICE/` | 外设初始化与 ST HAL | — |
 
 **入口链路**：
 
@@ -204,17 +226,18 @@ Core/Src/main.c
 
 ### 3.3 Ctrl-Step 驱动固件（STM32F103）
 
-路径：[`2.Firmware/Ctrl-Step-Driver-STM32F1-fw/`](../2.Firmware/Ctrl-Step-Driver-STM32F1-fw/)
+路径：[`2.Firmware/Ctrl-Step-Driver-STM32F1-fw/`](../2.Firmware/Ctrl-Step-Driver-STM32F1-fw/)  
+详细设计：[DRV-App](design/DRV-App.md) · [DRV-Control](design/DRV-Control.md) · [DRV-Port](design/DRV-Port.md) · [DRV-Protocols](design/DRV-Protocols.md)
 
 ```text
 Ctrl-Step-Driver-STM32F1-fw/
-├── Ctrl/
+├── Ctrl/               # → DRV-Control.md
 │   ├── Motor/          # motor、motion_planner
 │   ├── Driver/         # TB67H450 斩波驱动
 │   ├── Sensor/Encoder/ # MT6816 磁编码器、校准器
 │   └── Signal/         # 按键、LED
-├── Port/               # 平台移植、模拟 EEPROM
-└── UserApp/            # main、CAN/UART 协议
+├── Port/               # → DRV-Port.md（平台移植、模拟 EEPROM）
+└── UserApp/            # → DRV-App.md / DRV-Protocols.md
 ```
 
 **控制链**：
@@ -433,7 +456,7 @@ TIM4 @ 20kHz
 
 ### 6.1 CLI-Tool（reftool）
 
-路径：[`3.Software/CLI-Tool/`](../3.Software/CLI-Tool/)
+路径：[`3.Software/CLI-Tool/`](../3.Software/CLI-Tool/) · 详细设计：[HOST-CLI-Tool.md](design/HOST-CLI-Tool.md)
 
 - 基于 ODrive `odrivetool` / fibre 框架的 Python 交互壳（`run_shell.py` / `run.bat`）。
 - 默认 `--path usb`，也可 `serial:COMx`。
@@ -442,7 +465,7 @@ TIM4 @ 20kHz
 
 ### 6.2 DummyStudio
 
-路径：[`3.Software/DummyStudio/`](../3.Software/DummyStudio/)
+路径：[`3.Software/DummyStudio/`](../3.Software/DummyStudio/) · 详细设计：[HOST-DummyStudio.md](design/HOST-DummyStudio.md)
 
 - Unity 预编译上位机（源码未开源），类似轻量 RoboDK。
 - 串口配置：`VendorID=1209`，`BaudRate=115200`。
@@ -467,17 +490,19 @@ TIM4 @ 20kHz
 
 ## 7. 二次开发地图
 
-| 目标 | 优先修改路径 |
-|------|----------------|
-| DH / 关节限位 / 减速比 / 反向 | `Robot/instances/dummy_robot.cpp`、`.h` |
-| 正逆解算法 | `Robot/algorithms/kinematic/6dof_kinematic.*` |
-| ASCII 命令 | `UserApp/protocols/ascii_protocol.cpp` |
-| Fibre 对外 API | `UserApp/protocols/cmd_protocol.cpp`、`dummy_robot.h` 中 `MakeProtocolDefinitions` |
-| REF→电机 CAN 封装 | `Robot/actuators/ctrl_step/ctrl_step.*` |
-| 电机端 CAN/UART | `Ctrl-Step-.../UserApp/protocols/interface_can.cpp`、`interface_uart.cpp` |
-| 控制环频率 / 任务 | `UserApp/main.cpp`（TIM7 200Hz） |
-| 板载外设 | `Bsp/` |
-| 驱动控制律 / 规划 | `Ctrl-Step-.../Ctrl/` |
+更细的模块入口与约束见 [`design/README.md`](design/README.md)。
+
+| 目标 | 优先修改路径 | 详细设计 |
+|------|----------------|----------|
+| DH / 关节限位 / 减速比 / 反向 | `Robot/instances/dummy_robot.cpp`、`.h` | [REF-Robot](design/REF-Robot.md) |
+| 正逆解算法 | `Robot/algorithms/kinematic/6dof_kinematic.*` | [REF-Robot](design/REF-Robot.md) |
+| ASCII 命令 | `UserApp/protocols/ascii_protocol.cpp` | [REF-Protocols](design/REF-Protocols.md) |
+| Fibre 对外 API | `UserApp/protocols/cmd_protocol.cpp`、`dummy_robot.h` 中 `MakeProtocolDefinitions` | [REF-Protocols](design/REF-Protocols.md) |
+| REF→电机 CAN 封装 | `Robot/actuators/ctrl_step/ctrl_step.*` | [REF-Robot](design/REF-Robot.md) |
+| 电机端 CAN/UART | `Ctrl-Step-.../UserApp/protocols/interface_can.cpp`、`interface_uart.cpp` | [DRV-Protocols](design/DRV-Protocols.md) |
+| 控制环频率 / 任务 | `UserApp/main.cpp`（TIM7 200Hz） | [REF-App](design/REF-App.md) |
+| 板载外设 | `Bsp/` | [REF-BSP](design/REF-BSP.md) · [REF-Comm](design/REF-Comm.md) |
+| 驱动控制律 / 规划 | `Ctrl-Step-.../Ctrl/` | [DRV-Control](design/DRV-Control.md) |
 
 **建议工具链**：CLion 或 STM32CubeIDE + CMake；烧录 ST-Link + STM32CubeProgrammer。
 
@@ -498,6 +523,7 @@ TIM4 @ 20kHz
 | `2.Firmware/Ctrl-Step-Driver-STM32F1-fw/UserApp/protocols/interface_can.cpp` | CAN 命令接收 |
 | `2.Firmware/Ctrl-Step-Driver-STM32F1-fw/UserApp/main.cpp` | 20kHz / 100Hz |
 | `3.Software/CLI-Tool/` | PC fibre 工具 |
+| `5.Docs/design/README.md` | 模块详细设计索引 |
 | `README.md` | 官方设计说明与指令模式表 |
 
 ### 8.2 术语表
