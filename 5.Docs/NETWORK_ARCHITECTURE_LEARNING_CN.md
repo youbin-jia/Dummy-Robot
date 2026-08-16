@@ -4,6 +4,8 @@
 > **目标**：读完后能独立画出整机通信图、拆开任意一帧报文、顺着源码走完一条指令。  
 > **对照工程**：本仓库 Dummy-Robot（六轴迷你机械臂）。它不是双足人形整机，但**网络骨架与工业人形相同**：上位机大脑 → 运动控制器小脑 → 关节总线肌肉。  
 > **参数以当前源码为准**。系统速查见 [ARCHITECTURE_CN.md](ARCHITECTURE_CN.md)，模块入口见 [design/README.md](design/README.md)。
+>
+> **配套 Word 手册**：[NETWORK_ARCHITECTURE_LEARNING_CN.docx](NETWORK_ARCHITECTURE_LEARNING_CN.docx)（37 页，包含整机架构图、协议选型、实验、排障与学习路线）。
 
 ---
 
