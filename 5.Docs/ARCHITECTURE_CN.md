@@ -3,6 +3,7 @@
 > 面向二次开发的系统架构说明。参数与协议以当前仓库源码为准。  
 > 官方仓库：[peng-zhihui/Dummy-Robot](https://github.com/peng-zhihui/Dummy-Robot)  
 > 本地上手指南：[PROJECT_GUIDE_CN.md](../PROJECT_GUIDE_CN.md)  
+> **网络架构入门**（小白向：分层理论、UART/USB/CAN/ASCII/Fibre、整机走读）：[`NETWORK_ARCHITECTURE_LEARNING_CN.md`](NETWORK_ARCHITECTURE_LEARNING_CN.md)  
 > **模块详细设计**（各代码模块设计架构与功能）：[`design/README.md`](design/README.md)
 
 ---
@@ -165,6 +166,7 @@ Dummy-Robot/
 │   └── DummyStudio/                    # Unity 预编译上位机
 ├── 4.Model/                            # STEP
 └── 5.Docs/
+    ├── NETWORK_ARCHITECTURE_LEARNING_CN.md  # 网络/协议入门（小白向）
     ├── ARCHITECTURE_CN.md              # 本文件（系统总览）
     └── design/                         # 模块详细设计
 ```
@@ -523,6 +525,7 @@ TIM4 @ 20kHz
 | `2.Firmware/Ctrl-Step-Driver-STM32F1-fw/UserApp/protocols/interface_can.cpp` | CAN 命令接收 |
 | `2.Firmware/Ctrl-Step-Driver-STM32F1-fw/UserApp/main.cpp` | 20kHz / 100Hz |
 | `3.Software/CLI-Tool/` | PC fibre 工具 |
+| `5.Docs/NETWORK_ARCHITECTURE_LEARNING_CN.md` | 网络架构与协议入门 |
 | `5.Docs/design/README.md` | 模块详细设计索引 |
 | `README.md` | 官方设计说明与指令模式表 |
 

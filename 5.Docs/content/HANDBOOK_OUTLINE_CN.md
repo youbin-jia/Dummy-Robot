@@ -452,6 +452,7 @@ python ref_tool.py --help
 
 | 文档 | 路径 | 用途 |
 |------|------|------|
+| 网络入门 | `5.Docs/NETWORK_ARCHITECTURE_LEARNING_CN.md` | 协议理论与整机走读 |
 | 架构总览 | `5.Docs/ARCHITECTURE_CN.md` | 系统设计 |
 | 模块设计 | `5.Docs/design/README.md` | 二次开发 |
 | 上手指南 | `PROJECT_GUIDE_CN.md` | 仓库导航 |

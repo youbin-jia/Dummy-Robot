@@ -2,12 +2,14 @@
 
 > 本文档集展开各代码模块的设计架构与功能，并标明其在总体架构中的位置。  
 > **系统总览**请先阅读：[ARCHITECTURE_CN.md](../ARCHITECTURE_CN.md)  
+> **网络入门**（协议理论小白向）：[NETWORK_ARCHITECTURE_LEARNING_CN.md](../NETWORK_ARCHITECTURE_LEARNING_CN.md)  
 > **上手指南**：[PROJECT_GUIDE_CN.md](../../PROJECT_GUIDE_CN.md)
 
 ## 文档与架构的分工
 
 | 文档层 | 职责 |
 |--------|------|
+| [`NETWORK_ARCHITECTURE_LEARNING_CN.md`](../NETWORK_ARCHITECTURE_LEARNING_CN.md) | 从零理解分层、UART/USB/CAN、ASCII/Fibre，以及一条指令如何走完全机 |
 | [`ARCHITECTURE_CN.md`](../ARCHITECTURE_CN.md) | 系统怎么拼：角色、跨模块时序、协议全表、术语 |
 | `design/*.md`（本文档集） | 这一块代码怎么写：入口、类、目录、二次开发点 |
 

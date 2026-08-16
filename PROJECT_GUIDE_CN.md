@@ -10,6 +10,9 @@
 **软硬件架构详解**（总体架构、固件分层、CAN/ASCII/Fibre 协议、控制时序）：  
 → [`5.Docs/ARCHITECTURE_CN.md`](5.Docs/ARCHITECTURE_CN.md)
 
+**网络架构入门**（小白向协议理论 + Dummy 整机对照，建议先读）：  
+→ [`5.Docs/NETWORK_ARCHITECTURE_LEARNING_CN.md`](5.Docs/NETWORK_ARCHITECTURE_LEARNING_CN.md)
+
 **模块详细设计**（各代码模块设计架构、功能与在总体架构中的位置）：  
 → [`5.Docs/design/README.md`](5.Docs/design/README.md)
 
@@ -44,6 +47,7 @@ Dummy-Robot/
 ├── 3.Software/            # DummyStudio 上位机等
 ├── 4.Model/               # 3D 模型、机箱、手提箱等
 ├── 5.Docs/                # 文档与图片
+│   ├── NETWORK_ARCHITECTURE_LEARNING_CN.md  # 网络架构入门（小白向）
 │   ├── ARCHITECTURE_CN.md # 软硬件架构文档（二次开发参考）
 │   └── design/            # 模块详细设计（REF / 驱动 / 上位机）
 └── README.md              # 官方说明（英文为主）
